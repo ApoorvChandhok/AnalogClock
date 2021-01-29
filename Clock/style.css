@@ -1,0 +1,105 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+    font-family: 'Ranchers', cursive;
+    ;
+}
+
+body{
+    font-size: 21px;
+    /* background: linear-gradient(to right, hsl(120 , 90% , 50%), hsl(200 , 90% , 50%)); */
+    background: rgb(23,27,158);
+    /* background: radial-gradient(circle, rgba(23,27,158,1) 0%, rgba(233,148,197,1) 100%); */
+    background: linear-gradient(to right,rgb(217,212,235), rgb(245,208,186));;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;/* To remove verticle scroll bar*/
+}
+
+.clock{
+    height: 450px;
+    width: 450px;
+    background: rgba(237,105,95,.7);
+    border-radius: 50%;
+    border: 3px black solid;
+    position: relative;
+}
+
+.clock .number{
+    --rotation: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background: blue; to visualise how we aligned numbers to the clock*/
+    text-align: center;
+    transform: rotate(var(--rotation)); /* the degree difference between every hour is 30deg */
+   /* background: blue; It just rotated the entire block to 30 degrees relatively to the clock but every number is absolute to the other number*/
+}/*--(some name) is the css variable that can be used throughtout the html css.*/
+
+.clock .number1 { --rotation : 30deg; }
+.clock .number2 { --rotation : 60deg; }
+.clock .number3 { --rotation : 90deg; }
+.clock .number4 { --rotation : 120deg; }
+.clock .number5 { --rotation : 150deg; }
+.clock .number6 { --rotation : 180deg; }
+.clock .number7 { --rotation : 210deg; }
+.clock .number8 { --rotation : 240deg; }
+.clock .number9 { --rotation : 270deg; }
+.clock .number10 { --rotation : 300deg; }
+.clock .number11 { --rotation : 330deg; }
+
+
+.clock .hand{
+    --rotation: 0;/*If we change it to say 30deg it will rotate around the centre but we want it from the bottom*/
+    /*We will add a property for this which is transform origin and set it to bottom so that hand should be fixed from one end and rotate from another end*/
+    position: absolute;
+    bottom: 50%;
+    left: 50%; /*To make the hands centered in the centre of the square */
+    width: 10px;
+    height: 50%;
+    background-color: black;
+    border: 1px white solid;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    transform-origin: bottom;
+    z-index: 10;
+    transform: translateX(-50%) rotate(calc(var(--rotation) * 1deg)); /*To make the hand overlap the dead centre in the 12*/
+    /*It means it translates 50% of its breadth backward in x-dir^n( negative means backward positive means forward )*/
+    /*calc() used for converting value entered into deg format*/ /*The rotate will be further used in js*/
+
+}
+/*Adding pseudo element (::after) that will add upon the html document
+pseudo-elements in CSS allows you to insert content onto a page without it needing to be in the HTML. */
+
+.clock::after{
+    content: '';
+    position: absolute;
+    background-color: black;
+    z-index: 11;
+    width: 15px;
+    height: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+}
+
+.clock .hand.second{
+    width: 5px;
+    height: 45%;
+    background-color: blue;
+}
+
+
+.clock .hand.minute{
+    width: 10px;
+    height: 50%;
+    background-color: black;
+}
+
+.clock .hand.hour{
+    width: 13px;
+    height: 30%;
+    background-color: black;
+}
